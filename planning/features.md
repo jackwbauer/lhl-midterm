@@ -3,6 +3,7 @@
 * Users can place orders online
 * Users can be notified when order is ready for pickup via SMS
 * Users can see the status of their orders on the website
+* Owners notified of a new order via SMS
 * Owners can see orders placed at their restaurant
 * Owners can update orders with estimated ready time
 * Users can see all menu items available at their restaurant of choice
