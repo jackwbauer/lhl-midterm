@@ -42,30 +42,28 @@ module.exports = (knex) => {
       .into('orders')
       .returning('id')
       .then((id) => {
-        req.body.menu_items.forEach((elem) => {
-          knex
-            .insert({
-              order_id: parseInt(id),
-              menu_item_id: elem.menu_item_id,
-              comment: elem.comment
-            })
-            .into('order_menu_items')
-            .then((result) => {
-              return;
-            })
+        const order_id = parseInt(id);
+        const menu_items = req.body.menu_items.map((elem) => {
+          elem.order_id = order_id;
+          return elem;
         });
-        res.json('Order placed!');
-        knex('locations')
-          .select('phone')
-          .where({ id: req.body.location_id })
-          .then(result => {
-            client.messages.create({
-              to: result[0].phone,
-              from: twilioPhone,
-              body: 'An order has been placed to your restaurant'
-            }).then(message => {
-              console.log(message);
-            })
+        knex
+          .insert(menu_items)
+          .into('order_menu_items')
+          .then((result) => {
+            knex('locations')
+              .select('phone')
+              .where({ id: req.body.location_id })
+              .then(result => {
+                client.messages.create({
+                  to: result[0].phone,
+                  from: twilioPhone,
+                  body: 'An order has been placed to your restaurant'
+                }).then(message => {
+                  console.log(message.sid);
+                })
+              })
+            res.json(result);
           })
       });
   });
