@@ -1,7 +1,7 @@
 "use strict";
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 
 module.exports = (knex) => {
 
@@ -15,7 +15,7 @@ module.exports = (knex) => {
         res.json(results);
       });
   });
-  
+
   router.get("/:id", (req, res) => {
     knex
       .select("pickup_time", "accepted", "ready")
@@ -23,7 +23,27 @@ module.exports = (knex) => {
       .where({ id: req.params.id })
       .then((results) => {
         res.json(results);
-    });
+      });
+  });
+
+  router.post("/", (req, res) => {
+    knex("orders")
+      .insert({
+        user_id: req.body.user_id,
+        location_id: req.body.location_id,
+      })
+      .returning('id')
+      .then(id => {
+        req.body.menu_items.forEach(item => {
+          console.log(item);
+          knex('order_menu_items')
+            .insert({
+              order_id: parseInt(id),
+              menu_item_id: item.menu_item_id,
+              comment: item.comment
+            }).then(() => {return});
+        });
+      });
   });
 
   return router;
