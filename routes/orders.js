@@ -47,7 +47,19 @@ module.exports = (knex) => {
               return;
             })
         });
-        res.json('Success!');
+        res.json('Order placed!');
+      });
+  });
+
+  router.put('/:id', (req, res) => {
+    knex('orders')
+      .where({ id: req.params.id })
+      .update({
+        pickup_time: new Date().toISOString(),
+        accepted: true
+      })
+      .then(results => {
+        res.json(results);
       });
   });
 
