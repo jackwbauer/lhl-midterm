@@ -55,7 +55,7 @@ module.exports = (knex) => {
     knex('orders')
       .where({ id: req.params.id })
       .update({
-        pickup_time: new Date().toISOString(),
+        pickup_time: req.body.pickup_time,
         accepted: true
       })
       .then(results => {
