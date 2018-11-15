@@ -6,6 +6,7 @@ exports.seed = function (knex, Promise) {
         .then(function () {
             return Promise.all([
                 knex('locations').insert({
+                    id: 1,
                     restaurant_id: 1,
                     address: '123 Airship Way',
                     phone: phone1,

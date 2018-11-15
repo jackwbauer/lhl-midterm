@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('menu_items', (table) => {
         table.increments('id');
         table.integer('location_id').unsigned().notNullable();
-        table.foreign('location_id').references('locations.id');
+        table.foreign('location_id').onDelete('CASCADE').references('locations.id');
         table.string('name').notNullable();
         table.decimal('price');
         table.string('description');

@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('locations', (table) => {
         table.increments('id');
         table.integer('restaurant_id').unsigned().notNullable();
-        table.foreign('restaurant_id').references('restaurants.id');
+        table.foreign('restaurant_id').onDelete('CASCADE').references('restaurants.id');
         table.string('address').notNullable();
         table.string('phone').notNullable();
         table.string('hours').notNullable();

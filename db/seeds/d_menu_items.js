@@ -3,6 +3,7 @@ exports.seed = function (knex, Promise) {
         .then(function () {
             return Promise.all([
                 knex('menu_items').insert({
+                    id: 1,
                     location_id: 1,
                     name: 'Baked Salmon',
                     price: 30.99,
@@ -10,6 +11,7 @@ exports.seed = function (knex, Promise) {
                     image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/baked+salmon.jpg'
                 }),
                 knex('menu_items').insert({
+                    id: 2,
                     location_id: 1,
                     name: 'Chicken Burrito',
                     price: 6.50,
@@ -17,6 +19,7 @@ exports.seed = function (knex, Promise) {
                     image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/chicken+burrito.jpg'
                 }),
                 knex('menu_items').insert({
+                    id: 3,
                     location_id: 1,
                     name: 'Pepperoni Pizza',
                     price: 13.75,
@@ -24,6 +27,7 @@ exports.seed = function (knex, Promise) {
                     image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pepperoni+pizza.jpg'
                 }),
                 knex('menu_items').insert({
+                    id: 4,
                     location_id: 1,
                     name: 'Meat and Veg',
                     price: 9.99,
@@ -31,6 +35,7 @@ exports.seed = function (knex, Promise) {
                     image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/potatoes+and+meat.jpg'
                 }),
                 knex('menu_items').insert({
+                    id: 5,
                     location_id: 1,
                     name: 'Spaghetti Bolognese',
                     price: 15.00,
@@ -38,6 +43,7 @@ exports.seed = function (knex, Promise) {
                     image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/spaghetti+with+meat+sauce.jpg'
                 }),
                 knex('menu_items').insert({
+                    id: 6,
                     location_id: 1,
                     name: 'Filet Minon',
                     price: 32.00,

@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
         table.increments('id');
         table.string('name').notNullable();
         table.integer('owner_id').unsigned().notNullable();
-        table.foreign('owner_id').references('users.id');
+        table.foreign('owner_id').onDelete('CASCADE').references('users.id');
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
     })
 };

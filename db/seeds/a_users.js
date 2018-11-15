@@ -8,6 +8,7 @@ exports.seed = function (knex, Promise) {
     .then(function () {
       return Promise.all([
         knex('users').insert({
+          id: 1,
           first_name: 'Dan',
           last_name: 'Nachbar',
           email: 'blimpguy@skyacht.com',
@@ -16,6 +17,7 @@ exports.seed = function (knex, Promise) {
           is_owner: true
         }),
         knex('users').insert({
+          id: 2,
           first_name: 'Nima',
           last_name: 'Boscarino',
           email: 'blimpfan@example.com',

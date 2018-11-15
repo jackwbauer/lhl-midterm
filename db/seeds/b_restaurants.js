@@ -3,6 +3,7 @@ exports.seed = function (knex, Promise) {
         .then(function () {
             return Promise.all([
                 knex('restaurants').insert({
+                    id: 1,
                     name: 'Dan\'s Blimp and Waffle House',
                     owner_id: 1
                 }),
