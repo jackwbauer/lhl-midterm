@@ -27,22 +27,27 @@ module.exports = (knex) => {
   });
 
   router.post("/", (req, res) => {
-    knex("orders")
+    knex
       .insert({
         user_id: req.body.user_id,
         location_id: req.body.location_id,
       })
+      .into('orders')
       .returning('id')
-      .then(id => {
-        req.body.menu_items.forEach(item => {
-          console.log(item);
-          knex('order_menu_items')
+      .then((id) => {
+        req.body.menu_items.forEach((elem) => {
+          knex
             .insert({
               order_id: parseInt(id),
-              menu_item_id: item.menu_item_id,
-              comment: item.comment
-            }).then(() => {return});
+              menu_item_id: elem.menu_item_id,
+              comment: elem.comment
+            })
+            .into('order_menu_items')
+            .then((result) => {
+              return;
+            })
         });
+        res.json('Success!');
       });
   });
 
