@@ -2,6 +2,13 @@
 
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
+
+//Twilio setup
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioPhone = process.env.TWILIO_PHONE;
+const client = require('twilio')(accountSid, authToken);
 
 module.exports = (knex) => {
 
@@ -48,6 +55,18 @@ module.exports = (knex) => {
             })
         });
         res.json('Order placed!');
+        knex('locations')
+          .select('phone')
+          .where({ id: req.body.location_id })
+          .then(result => {
+            client.messages.create({
+              to: result[0].phone,
+              from: twilioPhone,
+              body: 'An order has been placed to your restaurant'
+            }).then(message => {
+              console.log(message);
+            })
+          })
       });
   });
 
@@ -59,7 +78,20 @@ module.exports = (knex) => {
         accepted: true
       })
       .then(results => {
-        res.json(results);
+        knex('orders')
+          .join('users', 'orders.user_id', 'users.id')
+          .select('users.phone')
+          .where({ 'orders.id': req.params.id })
+          .then(result => {
+            client.messages.create({
+              to: result[0].phone,
+              from: twilioPhone,
+              body: `Your order will be ready for pickup at ${moment(req.body.pickup_time).format("h:mm a")}`
+            }).then(message => {
+              console.log(message.sid);
+            })
+            res.json(result);
+          })
       });
   });
 
