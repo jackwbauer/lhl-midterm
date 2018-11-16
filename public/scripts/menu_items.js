@@ -16,24 +16,18 @@ $(() => {
         return $listItem;
     }
 
-    function updateOrderItemList() {
-        $orderItemList.empty();
-        orderObj.menu_items.forEach((item) => {
-            $orderItemList.append(buildListItem(item));
-        });
-    }
-
     function handleAddItemClick(event) {
         const $eventTarget = $(event.target);
         const menu_item_id = $eventTarget.data('menu-item-id');
         const menu_item_name = $eventTarget.data('menu-item-name');
         const menu_item_price = $eventTarget.data('menu-item-price');
-        orderObj.menu_items.push({
+        const new_menu_item = {
             menu_item_id,
             menu_item_name,
             menu_item_price
-        });
-        updateOrderItemList();
+        };
+        orderObj.menu_items.push(new_menu_item);
+        $orderItemList.append(buildListItem(new_menu_item));
     }
 
     function handlePlaceOrderClick(event) {
@@ -50,7 +44,7 @@ $(() => {
                 data: JSON.stringify(orderObj),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     console.log(data);
                 }
             })
