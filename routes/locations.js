@@ -5,14 +5,33 @@ const router = express.Router();
 
 module.exports = (knex) => {
 
-  router.get("/:id", (req, res) => {
+  function parseOrders(orders) {
+    const returnObj = {};
+    orders.forEach((orderItem) => {
+      if (!returnObj[orderItem.id]) {
+        returnObj[orderItem.id] = [orderItem];
+      } else {
+        returnObj[orderItem.id].push(orderItem);
+      }
+    });
+    return returnObj;
+  }
+
+  router.get('/:id/orders', (req, res) => {
     knex
-      .select("locations.address", "locations.phone", "locations.hours", "restaurants.name")
-      .from("locations")
-      .join("restaurants", "locations.restaurant_id", "restaurants.id")
-      .where({ "locations.id": req.params.id })
-      .then((results) => {
-        res.render('../views/locations', results[0]);
+      .from('locations')
+      .join('orders', 'orders.location_id', 'locations.id')
+      .join('order_menu_items as omi', 'orders.id', 'omi.order_id')
+      .join('menu_items as items', 'omi.menu_item_id', 'items.id')
+      .join('users', 'orders.user_id', 'users.id')
+      .where('locations.id', req.params.id)
+      .select('orders.id', 'items.name', 'omi.comment', 'users.first_name', 'users.last_name', 'users.phone')
+      .orderBy('orders.created_at', 'orders.id')
+      .then((orders) => {
+        const templateVars = {
+          orders: parseOrders(orders)
+        };
+        res.render("../views/order_list", templateVars);
       });
   });
 
@@ -27,6 +46,17 @@ module.exports = (knex) => {
       .then((results) => {
         const templateVars = { menu_items: results };
         res.render("../views/menu_items", templateVars);
+      });
+  });
+
+  router.get("/:id", (req, res) => {
+    knex
+      .select("locations.address", "locations.phone", "locations.hours", "restaurants.name")
+      .from("locations")
+      .join("restaurants", "locations.restaurant_id", "restaurants.id")
+      .where({ "locations.id": req.params.id })
+      .then((results) => {
+        res.render('../views/locations', results[0]);
       });
   });
 
