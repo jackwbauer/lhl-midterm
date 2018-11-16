@@ -14,14 +14,16 @@
                                 <h5><%= item.comment %></h5>
                             </div>
                         <% }); %>
-                        <input class="form-control" name="pickup_time" data-order-id=<%= id %> >
-                        <button class="btn btn-primary btn-lg">Accept Order</button>
+                        <input class="form-control" name="pickup_time" type="time" data-order-id=<%= id %> >
+                        <button class="btn btn-primary btn-lg accept">Accept Order</button>
                     </div>
                 </div>
             <% } %>
         </div>
     </div>
 </div>
+
+<script src="/scripts/order_list.js"></script>
 
 <% include ./partials/_footer.ejs %>
 <% include ./partials/_tail.ejs %>

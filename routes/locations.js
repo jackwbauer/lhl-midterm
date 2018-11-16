@@ -25,6 +25,7 @@ module.exports = (knex) => {
       .join('menu_items as items', 'omi.menu_item_id', 'items.id')
       .join('users', 'orders.user_id', 'users.id')
       .where('locations.id', req.params.id)
+      .andWhere('orders.accepted', false)
       .select('orders.id', 'items.name', 'omi.comment', 'users.first_name', 'users.last_name', 'users.phone')
       .orderBy('orders.created_at', 'orders.id')
       .then((orders) => {
