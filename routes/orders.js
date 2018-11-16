@@ -10,6 +10,20 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioPhone = process.env.TWILIO_PHONE;
 const client = require('twilio')(accountSid, authToken);
 
+function sendTwilio(phone, pickup_time) {
+  let message = '';
+  if (!pickup_time) {
+    message = 'An order has been placed to your restaurant';
+  } else {
+    message = `Your order will be ready for pickup at ${moment(pickup_time).format("h:mm a")}`;
+  }
+  return client.messages.create({
+    to: phone,
+    from: twilioPhone,
+    body: message
+  });
+}
+
 module.exports = (knex) => {
 
   router.get("/:id/menu_items", (req, res) => {
@@ -62,13 +76,8 @@ module.exports = (knex) => {
               .select('phone')
               .where({ id: req.body.location_id })
               .then(result => {
-                client.messages.create({
-                  to: result[0].phone,
-                  from: twilioPhone,
-                  body: 'An order has been placed to your restaurant'
-                }).then(message => {
-                  console.log(message.sid);
-                })
+                sendTwilio(result[0].phone)
+                  .then(message => console.log(message.sid));
               })
             res.json(order_id);
           })
@@ -88,13 +97,8 @@ module.exports = (knex) => {
           .select('users.phone')
           .where({ 'orders.id': req.params.id })
           .then(result => {
-            client.messages.create({
-              to: result[0].phone,
-              from: twilioPhone,
-              body: `Your order will be ready for pickup at ${moment(req.body.pickup_time).format("h:mm a")}`
-            }).then(message => {
-              console.log(message.sid);
-            })
+            sendTwilio(result[0].phone, req.body.pickup_time)
+              .then(message => console.log(message.sid));
             res.json(result);
           })
       });
