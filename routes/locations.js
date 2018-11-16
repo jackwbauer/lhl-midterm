@@ -7,11 +7,12 @@ module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
     knex
-      .select("address", "phone", "hours")
+      .select("locations.address", "locations.phone", "locations.hours", "restaurants.name")
       .from("locations")
-      .where({ id: req.params.id })
+      .join("restaurants", "locations.restaurant_id", "restaurants.id")
+      .where({ "locations.id": req.params.id })
       .then((results) => {
-        res.render('../views/locations');
+        res.render('../views/locations', results[0]);
     });
   });
 
