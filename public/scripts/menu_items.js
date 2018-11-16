@@ -38,16 +38,22 @@ $(() => {
 
     function handlePlaceOrderClick(event) {
         event.preventDefault();
-        if(orderObj.menu_items.length > 0) {
+        if (orderObj.menu_items.length > 0) {
             // send post request to server
             orderObj.menu_items.forEach((item) => {
                 delete item.menu_item_name;
                 delete item.menu_item_price;
             });
-            $.post('/orders', JSON.stringify(orderObj), (err, data) => {
-                console.error(err);
-                console.log(data);
-            }, "json");
+            $.ajax({
+                url: '/orders/',
+                type: "POST",
+                data: JSON.stringify(orderObj),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                }
+            })
         } else {
             // no items have been added to the order
             alert('no items on order!');
