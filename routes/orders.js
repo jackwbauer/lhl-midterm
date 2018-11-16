@@ -52,6 +52,45 @@ module.exports = (knex) => {
       });
   });
 
+  router.put('/:id/review', (req, res) => {
+    knex('orders')
+      .where({ id: req.params.id })
+      .update({ confirmed: true })
+      .then(() => {
+        knex
+          .from('orders')
+          .join('locations as loc', 'loc.id', 'orders.location_id')
+          .join('restaurants as rests', 'loc.restaurant_id', 'rests.id')
+          .join('users', 'users.id', 'rests.owner_id')
+          .select('users.phone')
+          .where({ 'orders.id': req.params.id })
+          .then((result) => {
+            sendTwilio(result[0].phone)
+              .then(message => console.log(message.sid));
+          });
+      })
+  })  
+
+  router.put('/:id', (req, res) => {
+    knex('orders')
+      .where({ id: req.params.id })
+      .update({
+        pickup_time: req.body.pickup_time,
+        accepted: true
+      })
+      .then(() => {
+        knex('orders')
+          .join('users', 'orders.user_id', 'users.id')
+          .select('users.phone')
+          .where({ 'orders.id': req.params.id })
+          .then(result => {
+            sendTwilio(result[0].phone, req.body.pickup_time)
+              .then(message => console.log(message.sid));
+            res.json(result);
+          })
+      });
+  });
+
   router.post("/", (req, res) => {
     let order_id;
     knex
@@ -72,34 +111,7 @@ module.exports = (knex) => {
           .into('order_menu_items')
           .then((result) => {
             console.log("order placed result:", result);
-            knex('locations')
-              .select('phone')
-              .where({ id: req.body.location_id })
-              .then(result => {
-                sendTwilio(result[0].phone)
-                  .then(message => console.log(message.sid));
-              })
             res.json(order_id);
-          })
-      });
-  });
-
-  router.put('/:id', (req, res) => {
-    knex('orders')
-      .where({ id: req.params.id })
-      .update({
-        pickup_time: req.body.pickup_time,
-        accepted: true
-      })
-      .then(results => {
-        knex('orders')
-          .join('users', 'orders.user_id', 'users.id')
-          .select('users.phone')
-          .where({ 'orders.id': req.params.id })
-          .then(result => {
-            sendTwilio(result[0].phone, req.body.pickup_time)
-              .then(message => console.log(message.sid));
-            res.json(result);
           })
       });
   });
