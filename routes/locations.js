@@ -11,7 +11,7 @@ module.exports = (knex) => {
       .from("locations")
       .where({ id: req.params.id })
       .then((results) => {
-        res.json(results);
+        res.render('../views/locations');
     });
   });
 
