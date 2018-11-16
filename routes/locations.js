@@ -18,11 +18,12 @@ module.exports = (knex) => {
 
   router.get("/:id/menu_items", (req, res) => {
     knex
-      .select("menu_items.name", "menu_items.price", "menu_items.description", "menu_items.image_url", "restaurants.name as restaurant")
+      .select("menu_items.name", "menu_items.price", "menu_items.description", "menu_items.image_url", "restaurants.name as restaurant", "menu_items.id")
       .from("menu_items")
       .join("locations", "locations.id", "menu_items.location_id")
       .join("restaurants", "restaurants.id", "locations.restaurant_id")
       .where({ location_id: req.params.id })
+      .orderBy("menu_items.id")
       .then((results) => {
         const templateVars = { menu_items: results };
         res.render("../views/menu_items", templateVars);

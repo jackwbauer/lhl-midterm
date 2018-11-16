@@ -24,17 +24,29 @@
                         </h3>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-primary btn-lg">Add to order</button>
+                        <button data-menu-item-name="<%= menu_items[item].name %>" data-menu-item-price="<%= menu_items[item].price %>"
+                            data-menu-item-id="<%= menu_items[item].id %>" class="add-item btn btn-primary btn-lg">Add
+                            to order</button>
                     </div>
                 </div>
             </div>
         </div>
         <% } %>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/locations/1/menu_items" role="button">Review your order!</a>
-        </p>
+    </div>
+    <div class="row">
+        <h3>Your Current Order:</h3>
+        <div id="order-item-list" class="list-group">
+
+        </div>
+    </div>
+    <div class="row">
+        <form class="lead">
+            <button id="place-order" class="btn btn-primary btn-lg" role="button">Place your order!</button>
+        </form>
     </div>
 </div>
+
+<script src="/scripts/menu_items.js"></script>
 
 <% include ./partials/_footer.ejs %>
 <% include ./partials/_tail.ejs %>

@@ -34,6 +34,7 @@ module.exports = (knex) => {
   });
 
   router.post("/", (req, res) => {
+    console.log(req);
     knex
       .insert({
         user_id: req.body.user_id,

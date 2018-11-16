@@ -1,0 +1,60 @@
+$(() => {
+
+    const orderObj = {};
+    const $orderItemList = $('#order-item-list');
+    orderObj.location_id = window.location.href.split('/')[4];
+    orderObj.user_id = 2;
+    orderObj.menu_items = [];
+
+    function buildListItem(item) {
+        const $listItem = $('<div>', {
+            class: 'list-group-item'
+        });
+        const $listItemName = $('<h3>').text(item.menu_item_name);
+        const $listItemPrice = $('<h3>').text(`$${item.menu_item_price}`);
+        $listItem.append($listItemName, $listItemPrice);
+        return $listItem;
+    }
+
+    function updateOrderItemList() {
+        $orderItemList.empty();
+        orderObj.menu_items.forEach((item) => {
+            $orderItemList.append(buildListItem(item));
+        });
+    }
+
+    function handleAddItemClick(event) {
+        const $eventTarget = $(event.target);
+        const menu_item_id = $eventTarget.data('menu-item-id');
+        const menu_item_name = $eventTarget.data('menu-item-name');
+        const menu_item_price = $eventTarget.data('menu-item-price');
+        orderObj.menu_items.push({
+            menu_item_id,
+            menu_item_name,
+            menu_item_price
+        });
+        updateOrderItemList();
+    }
+
+    function handlePlaceOrderClick(event) {
+        event.preventDefault();
+        if(orderObj.menu_items.length > 0) {
+            // send post request to server
+            orderObj.menu_items.forEach((item) => {
+                delete item.menu_item_name;
+                delete item.menu_item_price;
+            });
+            $.post('/orders', JSON.stringify(orderObj), (err, data) => {
+                console.error(err);
+                console.log(data);
+            }, "json");
+        } else {
+            // no items have been added to the order
+            alert('no items on order!');
+        }
+    }
+
+    $('button.add-item').click(handleAddItemClick);
+    $('#place-order').click(handlePlaceOrderClick);
+
+});
