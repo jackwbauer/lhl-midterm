@@ -25,15 +25,22 @@ module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
     knex
-      .select("pickup_time", "accepted", "ready")
+      .select("orders.pickup_time", "orders.accepted", "orders.ready", "omi.comment", "items.name", 'items.price')
       .from("orders")
-      .where({ id: req.params.id })
+      .join('order_menu_items as omi', 'orders.id', 'omi.order_id')
+      .join('menu_items as items', 'omi.menu_item_id', 'items.id')
+      .where({ 'orders.id': req.params.id })
       .then((results) => {
-        res.json(results);
+        const templateVars = {
+          orderInfo: results
+        };
+        // res.render('./order_review', templateVars);
+        res.json(templateVars);
       });
   });
 
   router.post("/", (req, res) => {
+    let order_id;
     knex
       .insert({
         user_id: req.body.user_id,
@@ -42,7 +49,7 @@ module.exports = (knex) => {
       .into('orders')
       .returning('id')
       .then((id) => {
-        const order_id = parseInt(id);
+        order_id = parseInt(id);
         const menu_items = req.body.menu_items.map((elem) => {
           elem.order_id = order_id;
           return elem;
@@ -51,6 +58,7 @@ module.exports = (knex) => {
           .insert(menu_items)
           .into('order_menu_items')
           .then((result) => {
+            console.log("order placed result:", result);
             knex('locations')
               .select('phone')
               .where({ id: req.body.location_id })
@@ -63,7 +71,7 @@ module.exports = (knex) => {
                   console.log(message.sid);
                 })
               })
-            res.json(result);
+            res.json(order_id);
           })
       });
   });
