@@ -18,6 +18,7 @@ const knexLogger = require('knex-logger');
 const restaurantsRoutes = require("./routes/restaurants");
 const ordersRoutes = require('./routes/orders');
 const locationsRoutes = require('./routes/locations');
+const methodOverride = require('method-override');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -26,6 +27,8 @@ app.use(morgan('dev'));
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
+
+app.use(methodOverride('_method'));
 
 app.set("view engine", "ejs");
 // app.use(bodyParser.urlencoded({ extended: true }));
