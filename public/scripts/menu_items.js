@@ -46,7 +46,7 @@ $(() => {
                 dataType: "json",
                 success: function (data) {
                     console.log(data);
-                    window.location = `/orders/${data}`;
+                    window.location = `/orders/${data}/review`;
                 }
             })
         } else {

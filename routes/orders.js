@@ -23,7 +23,7 @@ module.exports = (knex) => {
       });
   });
 
-  router.get("/:id", (req, res) => {
+  router.get("/:id/review", (req, res) => {
     knex
       .select("orders.pickup_time", "orders.accepted", "orders.ready", "omi.comment", "items.name", 'items.price')
       .from("orders")
@@ -34,8 +34,7 @@ module.exports = (knex) => {
         const templateVars = {
           orderInfo: results
         };
-        // res.render('./order_review', templateVars);
-        res.json(templateVars);
+        res.render('./order_review', templateVars);
       });
   });
 

@@ -1,0 +1,42 @@
+<% include ./partials/_head.ejs %>
+<% include ./partials/_header.ejs %>
+
+<div class="container" data-order-info=<%= orderInfo %>>
+    <div class="row">
+        <h2>Order Review</h2>
+    </div>
+
+    <div class="row">
+        <h3>Accepted: <%= (orderInfo.accepted) ? 'Yes' : 'No' %></h3>
+        <h3>Pickup Time: <%= (orderInfo.pickup_time) ? orderInfo.pickup_time : 'N/A' %></h3>
+    </div>
+
+    <div class="list-group">
+        <% let orderTotal = 0; %>
+        <% orderInfo.forEach((item) => { %>
+            <% orderTotal += parseFloat(item.price); %>
+            <div class="list-group-item">
+                <h4>
+                    <span><%= item.name %></span>
+                    <span><%= `$${item.price}` %></span>
+                </h4>
+                <form>
+                    <input class="form-control comment" name="comment" placeholder="Comment" value=<%= item.comment %> >
+                </form>
+            </div>
+        <% }); %>
+        <div class="list-group-item">
+            <h4>Total: <%= `$${orderTotal.toFixed(2)}` %></h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <button class="btn btn-primary btn-lg" id="confirm">Place Order!</button>
+    </div>
+
+</div>
+
+<script src="/scripts/order_review.js"></script>
+
+<% include ./partials/_footer.ejs %>
+<% include ./partials/_tail.ejs %>
