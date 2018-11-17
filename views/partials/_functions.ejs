@@ -18,8 +18,8 @@ formatPhoneNumber = function (phoneNumber) {
 }
 
 createHoursString = function (opening, closing) {
-    let openTime = `${(opening / 60) % 13}:${pad(opening % 60)} ${am_or_pm(opening)}`;
-    let closeTime = `${(closing / 60) % 13}:${pad(closing % 60)} ${am_or_pm(closing)}`;
+    let openTime = `${(opening / 60) % 12 + 1}:${pad(opening % 60)} ${am_or_pm(opening)}`;
+    let closeTime = `${(closing / 60) % 12 + 1}:${pad(closing % 60)} ${am_or_pm(closing)}`;
     console.log(openTime);
     return `${openTime} - ${closeTime}`;
 }
