@@ -5,12 +5,12 @@ exports.seed = function (knex, Promise) {
     return knex('locations').del()
         .then(function () {
             return Promise.all([
-                knex('locations').insert({
+                knex('locations').insert([{
                     id: 1,
                     restaurant_id: 1,
                     address: '123 Airship Way',
                     phone: phone1,
-                    sunday_opneing: 600,
+                    sunday_opening: 600,
                     sunday_closing: 1200,
                     monday_opening: 540,
                     monday_closing: 1260,
@@ -24,7 +24,7 @@ exports.seed = function (knex, Promise) {
                     friday_closing: 1260,
                     saturday_opening: 600,
                     saturday_closing: 1320,
-                }),
+                }]),
             ]);
         });
 };
