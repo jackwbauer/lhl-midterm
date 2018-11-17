@@ -5,6 +5,7 @@ $(() => {
     orderObj.location_id = window.location.href.split('/')[4];
     orderObj.user_id = 2;
     orderObj.menu_items = [];
+    const $placeOrderButton = $('#place-order');
 
     function buildListItem(item) {
         const $listItem = $('<div>', {
@@ -14,6 +15,14 @@ $(() => {
         const $listItemPrice = $('<h5>').text(`$${item.menu_item_price}`);
         $listItem.append($listItemName, $listItemPrice);
         return $listItem;
+    }
+
+    function handleButtonVisibility() {
+        if (orderObj.menu_items.length > 0) {
+            $placeOrderButton.removeClass('hidden');
+        } else {
+            $placeOrderButton.addClass('hidden');
+        }
     }
 
     function handleAddItemClick(event) {
@@ -28,6 +37,7 @@ $(() => {
         };
         orderObj.menu_items.push(new_menu_item);
         $orderItemList.append(buildListItem(new_menu_item));
+        handleButtonVisibility();
     }
 
     function handlePlaceOrderClick(event) {
@@ -56,6 +66,7 @@ $(() => {
     }
 
     $('button.add-item').click(handleAddItemClick);
-    $('#place-order').click(handlePlaceOrderClick);
+    $placeOrderButton.click(handlePlaceOrderClick);
+    handleButtonVisibility();
 
 });
