@@ -6,6 +6,7 @@ exports.seed = function (knex, Promise) {
             id: 1,
             user_id: 2,
             location_id: 1,
+            comment: 'I WANT MY FOOD NOW!!!'
           }),
         ]);
       });
