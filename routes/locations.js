@@ -52,7 +52,7 @@ module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
     knex
-      .select("locations.address", "locations.phone", "locations.hours", "restaurants.name")
+      .select("locations.address", "locations.phone", "restaurants.name", "locations.sunday", "locations.monday", "locations.tuesday", "locations.wednesday", "locations.thursday", "locations.friday", "locations.saturday")
       .from("locations")
       .join("restaurants", "locations.restaurant_id", "restaurants.id")
       .where({ "locations.id": req.params.id })
