@@ -1,0 +1,32 @@
+<% include ./partials/_head.ejs %>
+<% include ./partials/_header.ejs %>
+<% include ./partials/_functions.ejs %>
+
+<div class="container">
+    <div class="row">
+        <h1><%= `${locals.locations[0].name} Locations` %></h1>
+        <div class="list-group">
+        <% if (locals.locations) { %>
+            <% locals.locations.forEach((location) => { %>
+                <div class="list-item">
+                    <div class="jumbotron col-md-12 location-list-item">
+                        <div class="col-md-10">
+                            <h3><%= `Address: ${location.address}` %></h3>
+                            <h4><%= `Hours: ${location.hours}` %></h4>
+                            <h4><%= `Phone: ${formatPhoneNumber(location.phone)}` %></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary btn-lg start-order">Start Order</button>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        <% } %>
+        </div>
+    </div>
+</div>
+
+<script src="/scripts/location_list.js"></script>
+
+<% include ./partials/_footer.ejs %>
+<% include ./partials/_tail.ejs %>
