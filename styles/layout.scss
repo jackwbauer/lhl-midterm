@@ -6,6 +6,33 @@ body {
     font-family: 'Exo', sans-serif;
 }
 
+#main {
+    background-image: url("https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/chopping-board.jpg");
+    min-height: 75vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    margin: 0;
+}
+
+.large-text {
+    font-size: 6em;
+    margin-top: 15rem;
+    // background-color: rgb(66, 66, 186);
+    // border: 1px solid rgb(66, 66, 186);
+    background-color: rgb(66, 66, 186);
+    opacity: 0.420;
+}
+
+.large-text:hover {
+    // background-color: orange !important;
+    background-color: rgb(66, 66, 186);
+    opacity: 0.7;
+    text-decoration: none !important;
+    // color: rgb(66, 66, 186) !important;
+    color: none !important;
+}
 
 
 
