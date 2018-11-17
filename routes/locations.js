@@ -59,13 +59,13 @@ module.exports = (knex) => {
 
   router.get("/:id", (req, res) => {
     knex
-      .select("locations.address", "locations.phone", "restaurants.name", "locations.sunday", "locations.monday", "locations.tuesday", "locations.wednesday", "locations.thursday", "locations.friday", "locations.saturday")
+      .select("locations.address", "locations.phone", "restaurants.name", "locations.saturday_opening as opening", "locations.saturday_closing as closing")
       .from("locations")
       .join("restaurants", "locations.restaurant_id", "restaurants.id")
       .where({ "locations.id": req.params.id })
       .then((results) => {
         console.log('results:', results);
-        results[0]['hours'] = getCurrentDayHours(results[0])
+        // results[0]['hours'] = getCurrentDayHours(results[0])
         res.render('../views/locations', results[0]);
       });
   });
