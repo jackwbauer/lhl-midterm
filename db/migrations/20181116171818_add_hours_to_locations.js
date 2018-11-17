@@ -1,6 +1,7 @@
 
 exports.up = function(knex, Promise) {
     return knex.schema.table('locations', table => {
+        table.dropColumn('hours');
         table.string('sunday');
         table.string('monday');
         table.string('tuesday');
@@ -13,6 +14,7 @@ exports.up = function(knex, Promise) {
   
   exports.down = function(knex, Promise) {
     return knex.schema.table('locations', table => {
+        table.string('hours');
         table.dropColumn('sunday');
         table.dropColumn('monday');
         table.dropColumn('tuesday');
