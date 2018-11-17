@@ -17,6 +17,13 @@ module.exports = (knex) => {
     return returnObj;
   }
 
+  function getCurrentDayHours(knexResult) {
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const day = new Date().getDay();
+    const hours = knexResult[days[day]];
+    return hours;
+  }
+
   router.get('/:id/orders', (req, res) => {
     knex
       .from('locations')
@@ -57,6 +64,7 @@ module.exports = (knex) => {
       .join("restaurants", "locations.restaurant_id", "restaurants.id")
       .where({ "locations.id": req.params.id })
       .then((results) => {
+        results[0]['hours'] = getCurrentDayHours(results[0])
         res.render('../views/locations', results[0]);
       });
   });
