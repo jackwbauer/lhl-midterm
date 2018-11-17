@@ -64,6 +64,7 @@ module.exports = (knex) => {
       .join("restaurants", "locations.restaurant_id", "restaurants.id")
       .where({ "locations.id": req.params.id })
       .then((results) => {
+        console.log('results:', results);
         results[0]['hours'] = getCurrentDayHours(results[0])
         res.render('../views/locations', results[0]);
       });
