@@ -7,7 +7,7 @@
             <h1><%= name %></h1>
             <p class="lead"><%= address %></p>
             <p class="lead">Phone: <%= phone %></p>
-            <p class="lead">Hours: <%= hours %></p>
+            <p class="lead">Hours: <%= createHoursString(opening, closing) %></p>
             <p class="lead">
                 <a class="btn btn-primary btn-lg" href="/locations/1/menu_items" role="button">Place an order!</a>
             </p>
