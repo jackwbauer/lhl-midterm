@@ -66,7 +66,10 @@ module.exports = (knex) => {
           .where({ 'orders.id': req.params.id })
           .then((result) => {
             sendTwilio(result[0].phone)
-              .then(message => console.log(message.sid));
+              .then((message) => {
+                console.log(message.sid);
+                res.json({'message': 'success'});
+              });
           });
       })
   })  
