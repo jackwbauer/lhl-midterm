@@ -10,8 +10,8 @@ $(() => {
         const $listItem = $('<div>', {
             class: 'list-group-item'
         });
-        const $listItemName = $('<h3>').text(item.menu_item_name);
-        const $listItemPrice = $('<h3>').text(`$${item.menu_item_price}`);
+        const $listItemName = $('<h5>').text(item.menu_item_name);
+        const $listItemPrice = $('<h5>').text(`$${item.menu_item_price}`);
         $listItem.append($listItemName, $listItemPrice);
         return $listItem;
     }
