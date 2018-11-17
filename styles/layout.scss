@@ -1,3 +1,5 @@
+@import 'variables';
+
 body {
     font-family: 'PT Serif', serif;
 }
@@ -7,7 +9,7 @@ body {
 }
 
 #main {
-    background-image: url("https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/chopping-board.jpg");
+    background-image: url("https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/chopping-board.jpeg");
     min-height: 75vh;
     background-position: center;
     background-repeat: no-repeat;
@@ -19,18 +21,14 @@ body {
 .large-text {
     font-size: 6em;
     margin-top: 15rem;
-    // background-color: rgb(66, 66, 186);
-    // border: 1px solid rgb(66, 66, 186);
-    background-color: rgb(66, 66, 186);
+    background-color: $mainSiteColor;
     opacity: 0.420;
 }
 
 .large-text:hover {
-    // background-color: orange !important;
-    background-color: rgb(66, 66, 186);
+    background-color: $mainSiteColor;
     opacity: 0.7;
     text-decoration: none !important;
-    // color: rgb(66, 66, 186) !important;
     color: none !important;
 }
 
