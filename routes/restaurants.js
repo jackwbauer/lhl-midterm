@@ -38,5 +38,17 @@ module.exports = (knex) => {
     });
   });
 
+  router.get('/', (req, res) => {
+    knex
+      .select('res.id', 'res.name', 'res.image_url', 'res.description')
+      .from('restaurants as res')
+      .then((results) => {
+        const templateVars = {
+          restaurants: results
+        };
+        res.render('restaurants', templateVars);
+      });
+  });
+
   return router;
 }
