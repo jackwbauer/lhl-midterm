@@ -53,6 +53,22 @@ module.exports = (knex) => {
       });
   });
 
+  router.get('/:id/confirmation', (req, res) => {
+    knex
+      .select("orders.pickup_time", "orders.accepted", "orders.ready", "omi.comment", "items.name", 'items.price')
+      .from("orders")
+      .join('order_menu_items as omi', 'orders.id', 'omi.order_id')
+      .join('menu_items as items', 'omi.menu_item_id', 'items.id')
+      .where({ 'orders.id': req.params.id })
+      .orderBy('omi.order_id')
+      .then((results) => {
+        const templateVars = {
+          orderInfo: results
+        };
+        res.render('./order_confirmation', templateVars);
+      });
+  });
+
   router.put('/:id/review', (req, res) => {
     knex('orders')
       .where({ id: req.params.id })

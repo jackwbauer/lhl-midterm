@@ -44,7 +44,8 @@ $(() => {
             class: 'list-group-item col-md-12 position-relative'
         });
         const $closeButton = $('<button>', {
-            class: 'close-button'
+            class: 'close-button',
+            tabindex: '-1'
         }).text('X').click(handleCloseButtonClick);
         const $listItemName = $('<h5>', {
             class: 'col-md-9'

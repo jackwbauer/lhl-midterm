@@ -16,15 +16,39 @@ exports.seed = function (knex, Promise) {
           phone: phone1,
           is_owner: true
         }),
-        knex('users').insert({
+        knex('users').insert([{
           id: 2,
           first_name: 'Nima',
           last_name: 'Boscarino',
           email: 'blimpfan@example.com',
           hashed_pwd: 'nima<3blimps',
-          phone: phone2,
+          phone: phone1,
           is_owner: false
-        }),
+        }, {
+          id: 3,
+          first_name: 'John',
+          last_name: 'Stamos',
+          email: 'john@stamos.com',
+          hashed_pwd: 'fasdfasdf',
+          phone: phone1,
+          is_owner: false
+        }, {
+          id: 4,
+          first_name: 'Brie',
+          last_name: 'Larson',
+          email: 'brie@larson.com',
+          hashed_pwd: 'asdfasdf',
+          phone: phone1,
+          is_owner: false
+        }, {
+          id: 5,
+          first_name: 'Ice',
+          last_name: 'T',
+          email: 'ice@t.com',
+          hashed_pwd: 'fasdfasdf',
+          phone: phone1,
+          is_owner: false
+        }]),
       ]);
     });
 };
