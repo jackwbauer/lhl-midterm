@@ -12,6 +12,10 @@ img.food-image {
     border-radius: 5px;
 }
 
+div.position-relative {
+    position: relative;
+}
+
 button.add-item {
     margin-top: 2rem;
 }
@@ -43,4 +47,10 @@ p.float-right {
 
 .running-total {
     margin-right: 32px;
+}
+
+button.close-button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
