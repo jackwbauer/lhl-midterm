@@ -12,7 +12,7 @@
                     <div class="jumbotron col-md-12 location-list-item">
                         <div class="col-md-10">
                             <h3><%= `Address: ${location.address}` %></h3>
-                            <h4><%= `Hours: ${location.hours}` %></h4>
+                            <h4><%= `Hours: ${createHoursString(location.opening, location.closing)}` %></h4>
                             <h4><%= `Phone: ${formatPhoneNumber(location.phone)}` %></h4>
                         </div>
                         <div class="col-md-2">
