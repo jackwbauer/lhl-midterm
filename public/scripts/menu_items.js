@@ -11,10 +11,14 @@ $(() => {
 
     function buildListItem(item) {
         const $listItem = $('<div>', {
-            class: 'list-group-item'
+            class: 'list-group-item col-md-12'
         });
-        const $listItemName = $('<h5>').text(item.menu_item_name);
-        const $listItemPrice = $('<h5>').text(`$${item.menu_item_price}`);
+        const $listItemName = $('<h5>', {
+            class: 'col-md-9'
+        }).text(item.menu_item_name);
+        const $listItemPrice = $('<h5>', {
+            class: 'col-md-3 text-right'
+        }).text(`$${item.menu_item_price}`);
         $listItem.append($listItemName, $listItemPrice);
         return $listItem;
     }
