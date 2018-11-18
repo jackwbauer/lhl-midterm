@@ -145,7 +145,7 @@ exports.seed = function (knex, Promise) {
                     }, {
                         id: 20,
                         location_id: 4,
-                        name: 'Spaghetti Pizza',
+                        name: 'Spaghizza',
                         price: 6.70,
                         description: 'A portmanteau of two classic Italian dishes',
                         image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza/spaghetti-pizza.jpeg'
