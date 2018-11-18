@@ -114,6 +114,76 @@ exports.seed = function (knex, Promise) {
                         price: 4.45,
                         description: 'Vanilla and waffles!',
                         image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/waffles/vanilla-waffles.jpeg'
+                    }, {
+                        id: 16,
+                        location_id: 4,
+                        name: 'Canadian',
+                        price: 9.99,
+                        description: 'Mushrooms, pepperoni, and sausage eh?',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza/canadian-pizza.jpeg'
+                    }, {
+                        id: 17,
+                        location_id: 4,
+                        name: 'All Meat',
+                        price: 10.99,
+                        description: 'All kinds of meat',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza/meat-pizza.jpeg'
+                    }, {
+                        id: 18,
+                        location_id: 4,
+                        name: 'Sausage and Egg',
+                        price: 7.28,
+                        description: 'You wouldn\'t think that these could go together, but they do!',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza/sausage-and-egg.jpeg'
+                    }, {
+                        id: 19,
+                        location_id: 4,
+                        name: 'Sausage and Olive',
+                        price: 8.20,
+                        description: 'We do the crazy so you don\'t have to',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza/sausage-and-olive-pizza.jpeg'
+                    }, {
+                        id: 20,
+                        location_id: 4,
+                        name: 'Spaghetti Pizza',
+                        price: 6.70,
+                        description: 'A portmanteau of two classic Italian dishes',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza/spaghetti-pizza.jpeg'
+                    }, {
+                        id: 21,
+                        location_id: 5,
+                        name: 'Cheeze Pizza',
+                        price: 7.80,
+                        description: 'Several different kinds of cheeze in one place',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza-two/all-cheeze.jpeg'
+                    }, {
+                        id: 22,
+                        location_id: 5,
+                        name: 'Half and Half Pizza',
+                        price: 5.00,
+                        description: 'For when you aren\'t sure what you want',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza-two/half-and-half-pizza.jpeg'
+                    }, {
+                        id: 23,
+                        location_id: 5,
+                        name: 'Mushroom and Carrot Pizza',
+                        price: 14.95,
+                        description: 'Yup, we went there',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza-two/mushroom-and-carrot.jpeg'
+                    }, {
+                        id: 24,
+                        location_id: 5,
+                        name: 'Classic Pepperoni',
+                        price: 17.99,
+                        description: 'Get it while it\'s hot!',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza-two/pepperoni-pizza.jpeg'
+                    }, {
+                        id: 25,
+                        location_id: 5,
+                        name: 'Tomato Pizza',
+                        price: 9.99,
+                        description: 'Because Dan likes it gnarly!',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/pizza-two/tomato-pizza.jpeg'
                     }
                 ])
             ]);
