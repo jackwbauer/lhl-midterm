@@ -9,6 +9,12 @@ $(() => {
     let runningTotal = 0;
     const $runningTotal = $('p.running-total');
 
+    function handleCommentUpdate(event) {
+        const $commentInput = $(event.target);
+        const index = $commentInput.data('index');
+        orderObj.menu_items[index].comment = $commentInput.val();
+    }
+
     function buildListItem(item) {
         const $listItem = $('<div>', {
             class: 'list-group-item col-md-12'
@@ -19,7 +25,12 @@ $(() => {
         const $listItemPrice = $('<h5>', {
             class: 'col-md-3 text-right'
         }).text(`$${item.menu_item_price}`);
-        $listItem.append($listItemName, $listItemPrice);
+        const $commentInput = $('<input>', {
+            class: 'form-control comment',
+            placeholder: 'Comment',
+            'data-index': item.index
+        }).on('change', handleCommentUpdate);
+        $listItem.append($listItemName, $listItemPrice, $commentInput);
         return $listItem;
     }
 
@@ -43,6 +54,7 @@ $(() => {
             menu_item_price
         };
         orderObj.menu_items.push(new_menu_item);
+        new_menu_item.index = orderObj.menu_items.indexOf(new_menu_item);
         $runningTotal.text(`Order Total: $${runningTotal.toFixed(2)}`);
         $orderItemList.append(buildListItem(new_menu_item));
         handleButtonVisibility();
@@ -55,6 +67,7 @@ $(() => {
             orderObj.menu_items.forEach((item) => {
                 delete item.menu_item_name;
                 delete item.menu_item_price;
+                delete item.index;
             });
             $.ajax({
                 url: '/orders/',

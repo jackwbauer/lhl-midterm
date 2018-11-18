@@ -15,9 +15,9 @@
                     <span><%= item.name %></span>
                     <span><%= `$${item.price}` %></span>
                 </h4>
-                <form>
-                    <input class="form-control comment" name="comment" placeholder="Comment" value=<%= item.comment %> >
-                </form>
+                <% if (item.comment) { %>
+                <h5>Comment: <%= item.comment %></h5>
+                <% } %>
             </div>
         <% }); %>
         <div class="list-group-item">
