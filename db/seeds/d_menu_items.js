@@ -45,11 +45,77 @@ exports.seed = function (knex, Promise) {
                 knex('menu_items').insert({
                     id: 6,
                     location_id: 1,
-                    name: 'Filet Minon',
+                    name: 'Filet Mignon',
                     price: 32.00,
                     description: 'Living the high life... in a blimp',
                     image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/steak+and+asparagus.jpg'
                 }),
+                knex('menu_items').insert([
+                    {
+                        id: 7,
+                        location_id: 2,
+                        name: 'Pancakes',
+                        price: 4.99,
+                        description: 'Golden brown pancakes',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/breakfast/pancake-stack.jpeg'
+                    }, {
+                        id: 8,
+                        location_id: 2,
+                        name: 'Waffles',
+                        price: 6.50,
+                        description: 'The way a waffle should be',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/breakfast/waffles.jpeg'
+                    }, {
+                        id: 9,
+                        location_id: 2,
+                        name: 'Chocolate Cake',
+                        price: 2.50,
+                        description: 'Tasty and chocolatey',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/breakfast/chocolate-cake.jpeg'
+                    }, {
+                        id: 10,
+                        location_id: 2,
+                        name: 'Vanilla Cake',
+                        price: 4.50,
+                        description: 'The opposite of chocolatey',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/breakfast/vanilla-cake.jpeg'
+                    }, {
+                        id: 11,
+                        location_id: 3,
+                        name: 'Chocolate Waffles',
+                        price: 6.99,
+                        description: 'Chocolate and waffles... who could ask for more?',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/waffles/chocolate-waffles.jpeg'
+                    }, {
+                        id: 12,
+                        location_id: 3,
+                        name: 'Crepes',
+                        price: 4.25,
+                        description: 'Flat pancakes',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/waffles/crepes.jpeg'
+                    }, {
+                        id: 13,
+                        location_id: 3,
+                        name: 'Raspberry Pancakes',
+                        price: 6.37,
+                        description: 'Raspberries and pancakes... what more is there to say?',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/waffles/raspberry-pancakes.jpeg'
+                    }, {
+                        id: 14,
+                        location_id: 3,
+                        name: 'Round Waffles',
+                        price: 3.60,
+                        description: 'The way a waffle was meant to be',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/waffles/round-waffles.jpeg'
+                    }, {
+                        id: 15,
+                        location_id: 3,
+                        name: 'Vanilla Waffles',
+                        price: 4.45,
+                        description: 'Vanilla and waffles!',
+                        image_url: 'https://s3-us-west-2.amazonaws.com/andydlindsay-midterm/waffles/vanilla-waffles.jpeg'
+                    }
+                ])
             ]);
         });
 };
