@@ -11,6 +11,13 @@ function am_or_pm(hour) {
     return 'AM';
 }
 
+function getHour(hour) {
+    if(hour > 13) {
+        return hour - 12;
+    }
+    return hour;
+}
+
 formatPhoneNumber = function (phoneNumber) {
     const phone = phoneNumber.split('');
     const returnNumber = `(${phone[0] + phone[1] + phone[2]}) ${phone[3] + phone[4] + phone[5]}-${phone[6] + phone[7] + phone[8] + phone[9]}`;
@@ -18,9 +25,8 @@ formatPhoneNumber = function (phoneNumber) {
 }
 
 createHoursString = function (opening, closing) {
-    let openTime = `${(opening / 60) % 12 + 1}:${pad(opening % 60)} ${am_or_pm(opening)}`;
-    let closeTime = `${(closing / 60) % 12 + 1}:${pad(closing % 60)} ${am_or_pm(closing)}`;
-    console.log(openTime);
+    let openTime = `${getHour(opening / 60)}:${pad(opening % 60)} ${am_or_pm(opening)}`;
+    let closeTime = `${getHour(closing / 60)}:${pad(closing % 60)} ${am_or_pm(closing)}`;
     return `${openTime} - ${closeTime}`;
 }
 

@@ -22,7 +22,7 @@ exports.seed = function (knex, Promise) {
                     thursday_closing: 1260,
                     friday_opening: 540,
                     friday_closing: 1260,
-                    saturday_opening: 600,
+                    saturday_opening: 720,
                     saturday_closing: 1320,
                 }, {
                     id: 2,
