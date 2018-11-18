@@ -1,0 +1,33 @@
+<% include ./partials/_head.ejs %>
+<% include ./partials/_header.ejs %>
+
+<div class="container">
+    <div class="row padding-top">
+        <h2>Order Confirmed!</h2>
+        <h3><%= `Accepted: ${ (orderInfo.accepted ? 'Yes' : 'Not yet') }` %></h3>
+        <h3><%= `Pickup Time: ${ orderInfo.pickup_time ? orderInfo.pickup_time : 'Not Available' }` %></h3>
+    </div>
+    <div class="row">
+        <div class="list-group">
+            <% let orderTotal = 0; %>
+            <% orderInfo.forEach((item) => { %>
+                <% orderTotal += parseFloat(item.price) %>
+                <div class="list-group-item">
+                    <h4>
+                        <span><%= item.name %></span>
+                        <span><%= `$${item.price}` %></span>
+                    </h4>
+                    <% if (item.comment) { %>
+                        <h5><%= `Comment: ${item.comment}` %></h5>
+                    <% } %>
+                </div>
+            <% }); %>
+            <div class="list-group-item">
+                <h4><%= `Total: $${orderTotal.toFixed(2)}` %></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./partials/_footer.ejs %>
+<% include ./partials/_tail.ejs %>
