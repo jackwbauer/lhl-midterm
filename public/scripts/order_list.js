@@ -7,16 +7,24 @@ $(() => {
         return date;
     }
 
-    $('.timepicker').timepicker({
-        timeFormat: 'h:mm p',
-        interval: 15,
-        minTime: '10:00am',
-        maxTime: '6:00pm',
-        defaultTime: 'now',
-        startTime: '10:00',
-        dynamic: true,
-        dropdown: true,
-        scrollbar: true
+    // $('.timepicker').timepicker({
+    //     timeFormat: 'h:mm p',
+    //     interval: 15,
+    //     minTime: '10:00am',
+    //     maxTime: '6:00pm',
+    //     defaultTime: 'now',
+    //     startTime: '10:00',
+    //     dynamic: true,
+    //     dropdown: true,
+    //     scrollbar: true
+    // });
+
+    $('.timepicker').datetimepicker({
+        format: 'LT'
+    });
+
+    $('#datetimepicker').datetimepicker({
+        format: 'LT'
     });
 
     function handleAcceptButton(event) {
