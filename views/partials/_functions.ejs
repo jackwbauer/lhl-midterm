@@ -5,7 +5,7 @@ function pad(n) {
 }
 
 function am_or_pm(hour) {
-    if(hour > 11) {
+    if(hour > 13) {
         return 'PM';
     }
     return 'AM';
@@ -25,7 +25,7 @@ formatPhoneNumber = function (phoneNumber) {
 }
 
 createHoursString = function (opening, closing) {
-    let openTime = `${getHour(opening / 60)}:${pad(opening % 60)} ${am_or_pm(opening / 60)}`;
+    let openTime = `${getHour(opening / 60)}:${pad(opening % 60)} ${am_or_pm(opening)}`;
     let closeTime = `${getHour(closing / 60)}:${pad(closing % 60)} ${am_or_pm(closing)}`;
     return `${openTime} - ${closeTime}`;
 }

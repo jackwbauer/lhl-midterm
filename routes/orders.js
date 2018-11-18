@@ -68,11 +68,11 @@ module.exports = (knex) => {
             sendTwilio(result[0].phone)
               .then((message) => {
                 console.log(message.sid);
-                res.json({'message': 'success'});
+                res.json({ 'message': 'success' });
               });
           });
       })
-  })  
+  })
 
   router.put('/:id', (req, res) => {
     knex('orders')
@@ -87,6 +87,7 @@ module.exports = (knex) => {
           .select('users.phone')
           .where({ 'orders.id': req.params.id })
           .then(result => {
+            console.log('time', req.body.pickup_time);
             sendTwilio(result[0].phone, req.body.pickup_time)
               .then(message => console.log(message.sid));
             res.json(result);

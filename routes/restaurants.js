@@ -21,6 +21,7 @@ module.exports = (knex) => {
       .where('loc.active', true)
       .andWhere('res.id', req.params.id)
       .then((results) => {
+        console.log(results);
         const templateVars = {
           locations: results
         };

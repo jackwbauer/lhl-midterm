@@ -1,10 +1,23 @@
 $(() => {
+
     function createTime(time) {
         let date = new Date();
         const timeArray = time.split(':');
         date.setHours(parseInt(timeArray[0]), timeArray[1]);
         return date;
     }
+
+    $('.timepicker').timepicker({
+        timeFormat: 'h:mm p',
+        interval: 15,
+        minTime: '10:00am',
+        maxTime: '6:00pm',
+        defaultTime: 'now',
+        startTime: '10:00',
+        dynamic: true,
+        dropdown: true,
+        scrollbar: true
+    });
 
     function handleAcceptButton(event) {
         const $button = $(event.target);
@@ -20,7 +33,7 @@ $(() => {
 
         pickup_time = createTime(pickup_time);
 
-        if(pickup_time < new Date()) {
+        if (pickup_time < new Date()) {
             console.log(pickup_time);
             alert('Your blimp cannot time travel... yet');
             return;
