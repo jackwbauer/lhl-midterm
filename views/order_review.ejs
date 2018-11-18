@@ -6,11 +6,6 @@
         <h2>Order Review</h2>
     </div>
 
-    <div class="row">
-        <h3>Accepted: <%= (orderInfo.accepted) ? 'Yes' : 'No' %></h3>
-        <h3>Pickup Time: <%= (orderInfo.pickup_time) ? orderInfo.pickup_time : 'N/A' %></h3>
-    </div>
-
     <div class="list-group">
         <% let orderTotal = 0; %>
         <% orderInfo.forEach((item) => { %>
@@ -20,9 +15,9 @@
                     <span><%= item.name %></span>
                     <span><%= `$${item.price}` %></span>
                 </h4>
-                <form>
-                    <input class="form-control comment" name="comment" placeholder="Comment" value=<%= item.comment %> >
-                </form>
+                <% if (item.comment) { %>
+                <h5>Comment: <%= item.comment %></h5>
+                <% } %>
             </div>
         <% }); %>
         <div class="list-group-item">
