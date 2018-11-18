@@ -44,6 +44,7 @@ module.exports = (knex) => {
       .join('order_menu_items as omi', 'orders.id', 'omi.order_id')
       .join('menu_items as items', 'omi.menu_item_id', 'items.id')
       .where({ 'orders.id': req.params.id })
+      .orderBy('omi.order_id')
       .then((results) => {
         const templateVars = {
           orderInfo: results

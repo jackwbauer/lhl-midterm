@@ -6,6 +6,8 @@ $(() => {
     orderObj.user_id = 2;
     orderObj.menu_items = [];
     const $placeOrderButton = $('#place-order');
+    let runningTotal = 0;
+    const $runningTotal = $('p.running-total');
 
     function buildListItem(item) {
         const $listItem = $('<div>', {
@@ -30,12 +32,14 @@ $(() => {
         const menu_item_id = $eventTarget.data('menu-item-id');
         const menu_item_name = $eventTarget.data('menu-item-name');
         const menu_item_price = $eventTarget.data('menu-item-price');
+        runningTotal += Number(menu_item_price);
         const new_menu_item = {
             menu_item_id,
             menu_item_name,
             menu_item_price
         };
         orderObj.menu_items.push(new_menu_item);
+        $runningTotal.text(`Order Total: $${runningTotal.toFixed(2)}`);
         $orderItemList.append(buildListItem(new_menu_item));
         handleButtonVisibility();
     }
