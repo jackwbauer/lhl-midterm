@@ -19,18 +19,11 @@ $(() => {
     //     scrollbar: true
     // });
 
-    $('.timepicker').datetimepicker({
-        format: 'LT'
-    });
-
-    $('#datetimepicker').datetimepicker({
-        format: 'LT'
-    });
-
     function handleAcceptButton(event) {
         const $button = $(event.target);
         const $time = $button.siblings('input');
         let pickup_time = $time.val();
+        console.log(pickup_time);
         const order_id = $time.data('order-id');
         console.log(pickup_time);
 
