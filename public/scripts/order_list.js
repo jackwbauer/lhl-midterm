@@ -47,11 +47,7 @@ $(() => {
 
         pickup_time = createTime(pickup_time);
 
-<<<<<<< HEAD
-        if (pickup_time < new Date()) {
-=======
         if (pickup_time < new Date() && state !== 'ready') {
->>>>>>> dev/order_list
             alert('Your blimp cannot time travel... yet');
             return;
         }

@@ -100,25 +100,6 @@ module.exports = (knex) => {
   })
 
   router.put('/:id', (req, res) => {
-<<<<<<< HEAD
-    knex('orders')
-      .where({ id: req.params.id })
-      .update({
-        pickup_time: req.body.pickup_time,
-        accepted: true
-      })
-      .then(() => {
-        knex('orders')
-          .join('users', 'orders.user_id', 'users.id')
-          .select('users.phone')
-          .where({ 'orders.id': req.params.id })
-          .then(result => {
-            sendTwilio(result[0].phone, req.body.pickup_time)
-              .then(message => console.log(message.sid));
-            res.json(result);
-          })
-      });
-=======
     if (req.body.state === 'ready') {
       knex('orders')
         .where({ id: req.params.id })
@@ -156,7 +137,6 @@ module.exports = (knex) => {
             })
         });
     }
->>>>>>> dev/order_list
   });
 
   router.post("/", (req, res) => {
