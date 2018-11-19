@@ -4,7 +4,7 @@ exports.seed = function (knex, Promise) {
         return Promise.all([
           knex.into('orders').insert([{
             id: 1,
-            user_id: 2,
+            user_id: 4,
             location_id: 1,
             comment: 'I WANT MY FOOD NOW!!!'
           }, {
