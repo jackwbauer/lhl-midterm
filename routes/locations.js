@@ -6,14 +6,38 @@ const router = express.Router();
 module.exports = (knex) => {
 
   function parseOrders(orders) {
-    const returnObj = {};
+    const returnObj = [{}, {}, {}];
     orders.forEach((orderItem) => {
-      if (!returnObj[orderItem.id]) {
-        returnObj[orderItem.id] = [orderItem];
+      if (orderItem.ready) {
+        if (!returnObj[2]) {
+          returnObj[2] = {};
+        }
+        if (!returnObj[2][orderItem.id]) {
+          returnObj[2][orderItem.id] = [orderItem];
+        } else {
+          returnObj[2][orderItem.id].push(orderItem);
+        }
+      } else if (orderItem.accepted && !orderItem.ready) {
+        if (!returnObj[1]) {
+          returnObj[1] = {};
+        }
+        if (!returnObj[1][orderItem.id]) {
+          returnObj[1][orderItem.id] = [orderItem];
+        } else {
+          returnObj[1][orderItem.id].push(orderItem);
+        }
       } else {
-        returnObj[orderItem.id].push(orderItem);
+        if (!returnObj[0]) {
+          returnObj[0] = {};
+        }
+        if (!returnObj[0][orderItem.id]) {
+          returnObj[0][orderItem.id] = [orderItem];
+        } else {
+          returnObj[0][orderItem.id].push(orderItem);
+        }
       }
     });
+    console.log('new', returnObj['new']);
     return returnObj;
   }
 
@@ -31,8 +55,7 @@ module.exports = (knex) => {
       .join('menu_items as items', 'omi.menu_item_id', 'items.id')
       .join('users', 'orders.user_id', 'users.id')
       .where('locations.id', req.params.id)
-      .andWhere('orders.accepted', false)
-      .select('orders.id', 'items.name', 'omi.comment', 'users.first_name', 'users.last_name', 'users.phone')
+      .select('orders.id', 'items.name', 'omi.comment', 'users.first_name', 'users.last_name', 'users.phone', 'orders.accepted', 'orders.ready')
       .orderBy('orders.created_at', 'orders.id')
       .then((orders) => {
         const templateVars = {
