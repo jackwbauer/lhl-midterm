@@ -4,21 +4,76 @@
 <div class="container">
     <div class="row">
         <div class="list-group">
-            <% for (let id in orders) { %>
-                <div class="list-group-item">
-                    <h3><%= `${orders[id][0].first_name} ${orders[id][0].last_name} (${orders[id][0].phone})` %></h3>
-                    <div class="list-group">
-                        <% orders[id].forEach((item) => { %>
-                            <div class="list-group-item">
-                                <h4><%= item.name %></h4>
-                                <h5><%= item.comment %></h5>
-                            </div>
-                        <% }); %>
-                        <input class="form-control timepicker" name="pickup_time" type="time" data-order-id=<%= id %> >
-                        <button class="btn btn-primary btn-lg accept">Accept Order</button>
+
+            <% if (Object.keys(orders[0]).length > 0) { %>
+            <h2>New Orders</h2>
+            <% for (let id in orders[0]) { %>
+            <div class="list-group-item">
+                <h3>
+                    <%= `${orders[0][id][0].first_name} ${orders[0][id][0].last_name} (${orders[0][id][0].phone})` %>
+                </h3>
+                <div class="list-group">
+                    <% orders[0][id].forEach((item) => { %>
+                    <div class="list-group-item">
+                        <h4>
+                            <%= item.name %>
+                        </h4>
+                        <h5>
+                            <%= item.comment %>
+                        </h5>
                     </div>
+                    <% }); %>
+                    <input class="form-control timepicker" name="pickup_time" type="time" data-order-id=<%=id %> >
+                    <button class="btn btn-primary btn-lg accept">Accept Order</button>
                 </div>
-            <% } %>
+            </div>
+            <% }} %>
+
+            <% if (Object.keys(orders[1]).length > 0) { %>
+            <h2>Accepted Orders</h2>
+            <% for (let id in orders[1]) { %>
+            <div class="list-group-item">
+                <h3>
+                    <%= `${orders[1][id][0].first_name} ${orders[1][id][0].last_name} (${orders[1][id][0].phone})` %>
+                </h3>
+                <div class="list-group">
+                    <% orders[1][id].forEach((item) => { %>
+                    <div class="list-group-item">
+                        <h4>
+                            <%= item.name %>
+                        </h4>
+                        <h5>
+                            <%= item.comment %>
+                        </h5>
+                    </div>
+                    <% }); %>
+                    <input class="form-control timepicker" name="pickup_time" type="time" data-order-id=<%=id %> >
+                    <button class="btn btn-primary btn-lg update">Update Pickup Time</button>
+                    <button class="btn btn-primary btn-lg ready">Order Ready</button>
+                </div>
+            </div>
+            <% }} %>
+            <% if (Object.keys(orders[2]).length > 0) { %>
+            <h2>Completed Orders</h2>
+            <% for (let id in orders[2]) { %>
+            <div class="list-group-item">
+                <h3>
+                    <%= `${orders[2][id][0].first_name} ${orders[2][id][0].last_name} (${orders[2][id][0].phone})` %>
+                </h3>
+                <div class="list-group">
+                    <% orders[2][id].forEach((item) => { %>
+                    <div class="list-group-item">
+                        <h4>
+                            <%= item.name %>
+                        </h4>
+                        <h5>
+                            <%= item.comment %>
+                        </h5>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+            <% }} %>
         </div>
     </div>
 </div>

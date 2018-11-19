@@ -10,12 +10,19 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioPhone = process.env.TWILIO_PHONE;
 const client = require('twilio')(accountSid, authToken);
 
-function sendTwilio(phone, pickup_time) {
+function sendTwilio(phone, pickup_time, state) {
   let message = '';
-  if (!pickup_time) {
+  console.log('state', state)
+  if (state === 'ready') {
+    message = 'Your order is ready for pickup. Thank you for using STAFÜD!'
+  } else if (!pickup_time) {
     message = 'An order has been placed to your restaurant';
   } else {
-    message = `Your order will be ready for pickup at ${moment(pickup_time).format("h:mm a")}`;
+    if (state === 'update') {
+      message = `Your order's pickup time has been updated to ${moment(pickup_time).format("h:mm a")}`;
+    } else {
+      message = `Your order will be ready for pickup at ${moment(pickup_time).format("h:mm a")}`;
+    }
   }
   return client.messages.create({
     to: phone,
@@ -92,24 +99,43 @@ module.exports = (knex) => {
   })
 
   router.put('/:id', (req, res) => {
-    knex('orders')
-      .where({ id: req.params.id })
-      .update({
-        pickup_time: req.body.pickup_time,
-        accepted: true
-      })
-      .then(() => {
-        knex('orders')
-          .join('users', 'orders.user_id', 'users.id')
-          .select('users.phone')
-          .where({ 'orders.id': req.params.id })
-          .then(result => {
-            console.log('time', req.body.pickup_time);
-            sendTwilio(result[0].phone, req.body.pickup_time)
-              .then(message => console.log(message.sid));
-            res.json(result);
-          })
-      });
+    if (req.body.state === 'ready') {
+      knex('orders')
+        .where({ id: req.params.id })
+        .update({
+          pickup_time: req.body.pickup_time,
+          ready: true
+        })
+        .then(() => {
+          knex('orders')
+            .join('users', 'orders.user_id', 'users.id')
+            .select('users.phone')
+            .where({ 'orders.id': req.params.id })
+            .then(result => {
+              sendTwilio(result[0].phone, req.body.pickup_time, req.body.state)
+                .then(message => console.log(message.sid));
+              res.json(result);
+            })
+        });
+    } else {
+      knex('orders')
+        .where({ id: req.params.id })
+        .update({
+          pickup_time: req.body.pickup_time,
+          accepted: true
+        })
+        .then(() => {
+          knex('orders')
+            .join('users', 'orders.user_id', 'users.id')
+            .select('users.phone')
+            .where({ 'orders.id': req.params.id })
+            .then(result => {
+              sendTwilio(result[0].phone, req.body.pickup_time, req.body.state)
+                .then(message => console.log(message.sid));
+              res.json(result);
+            })
+        });
+    }
   });
 
   router.post("/", (req, res) => {

@@ -7,6 +7,20 @@ $(() => {
         return date;
     }
 
+    function getOrderState(button) {
+        let state = '';
+        if(button.hasClass('update')) {
+            state = 'update';
+            return state;
+        }
+        if(button.hasClass('ready')) {
+            state = 'ready';
+            return state;
+        }
+        state = 'accept'
+        return state;
+    }
+
     // $('.timepicker').timepicker({
     //     timeFormat: 'h:mm p',
     //     interval: 15,
@@ -19,23 +33,21 @@ $(() => {
     //     scrollbar: true
     // });
 
-    function handleAcceptButton(event) {
+    function handleButton(event) {
         const $button = $(event.target);
         const $time = $button.siblings('input');
+        const state = getOrderState($button);
         let pickup_time = $time.val();
-        console.log(pickup_time);
         const order_id = $time.data('order-id');
-        console.log(pickup_time);
 
-        if (!pickup_time) {
+        if (!pickup_time && state !== 'ready') {
             alert('Need to specify a pickup time!');
             return;
         }
 
         pickup_time = createTime(pickup_time);
 
-        if (pickup_time < new Date()) {
-            console.log(pickup_time);
+        if (pickup_time < new Date() && state !== 'ready') {
             alert('Your blimp cannot time travel... yet');
             return;
         }
@@ -43,7 +55,7 @@ $(() => {
         $.ajax({
             url: `/orders/${order_id}?_method=PUT`,
             type: 'PUT',
-            data: JSON.stringify({ pickup_time }),
+            data: JSON.stringify({ pickup_time, state }),
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
             success: function (res) {
@@ -51,5 +63,7 @@ $(() => {
             }
         });
     }
-    $('button.accept').click(handleAcceptButton)
+    $('button.accept').click(handleButton);
+    $('button.update').click(handleButton);
+    $('button.ready').click(handleButton);
 });
