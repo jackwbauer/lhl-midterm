@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row padding-top">
         <h2>Order Confirmed!</h2>
-        <h3><%= `Accepted: ${ (orderInfo.accepted ? 'Yes' : 'Not yet') }` %></h3>
-        <h3><%= `Pickup Time: ${ orderInfo.pickup_time ? orderInfo.pickup_time : 'Not Available' }` %></h3>
+        <h3><%= `Accepted: ${ (orderInfo[0].accepted ? 'Yes' : 'Not yet') }` %></h3>
+        <h3><%= `Pickup Time: ${ orderInfo[0].pickup_time ? moment(orderInfo[0].pickup_time).format('h:mm a') : 'Not Available' }` %></h3>
     </div>
     <div class="row">
         <div class="list-group">

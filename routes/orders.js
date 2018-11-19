@@ -63,8 +63,10 @@ module.exports = (knex) => {
       .orderBy('omi.order_id')
       .then((results) => {
         const templateVars = {
-          orderInfo: results
+          orderInfo: results,
+          moment
         };
+        console.log('templateVars:', templateVars);
         res.render('./order_confirmation', templateVars);
       });
   });
