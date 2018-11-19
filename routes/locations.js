@@ -20,7 +20,6 @@ module.exports = (knex) => {
   function getCurrentDay() {
     const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const day = new Date().getDay();
-    console.log(day);
     return days[day];
   }
 
@@ -65,7 +64,6 @@ module.exports = (knex) => {
       .join("restaurants", "locations.restaurant_id", "restaurants.id")
       .where({ "locations.id": req.params.id })
       .then((results) => {
-        console.log('results:', results);
         res.render('../views/locations', results[0]);
       });
   });

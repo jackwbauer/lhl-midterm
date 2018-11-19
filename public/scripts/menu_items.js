@@ -12,10 +12,8 @@ $(() => {
 
     function findIndexByObjectKeyValue(inputObjectArray, key, value) {
         let returnIndex;
-        console.log(inputObjectArray);
         inputObjectArray.forEach((elem, index) => {
             if (elem[key] === value) {
-                console.log('success');
                 returnIndex = index;
             }
         });
@@ -109,7 +107,6 @@ $(() => {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
                     window.location = `/orders/${data}/review`;
                 }
             })

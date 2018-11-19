@@ -23,9 +23,7 @@ $(() => {
         const $button = $(event.target);
         const $time = $button.siblings('input');
         let pickup_time = $time.val();
-        console.log(pickup_time);
         const order_id = $time.data('order-id');
-        console.log(pickup_time);
 
         if (!pickup_time) {
             alert('Need to specify a pickup time!');
@@ -35,7 +33,6 @@ $(() => {
         pickup_time = createTime(pickup_time);
 
         if (pickup_time < new Date()) {
-            console.log(pickup_time);
             alert('Your blimp cannot time travel... yet');
             return;
         }

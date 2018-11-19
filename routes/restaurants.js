@@ -6,7 +6,6 @@ const router  = express.Router();
 function getCurrentDay() {
   const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   const day = new Date().getDay();
-  console.log(day);
   return days[day];
 }
 
@@ -21,7 +20,6 @@ module.exports = (knex) => {
       .where('loc.active', true)
       .andWhere('res.id', req.params.id)
       .then((results) => {
-        console.log(results);
         const templateVars = {
           locations: results
         };

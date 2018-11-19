@@ -66,7 +66,6 @@ module.exports = (knex) => {
           orderInfo: results,
           moment
         };
-        console.log('templateVars:', templateVars);
         res.render('./order_confirmation', templateVars);
       });
   });
@@ -106,7 +105,6 @@ module.exports = (knex) => {
           .select('users.phone')
           .where({ 'orders.id': req.params.id })
           .then(result => {
-            console.log('time', req.body.pickup_time);
             sendTwilio(result[0].phone, req.body.pickup_time)
               .then(message => console.log(message.sid));
             res.json(result);
@@ -133,7 +131,6 @@ module.exports = (knex) => {
           .insert(menu_items)
           .into('order_menu_items')
           .then((result) => {
-            console.log("order placed result:", result);
             res.json(order_id);
           })
       });
